@@ -11,7 +11,7 @@ namespace IJunior_Task20
             int minPointsOfDetermination = 0;
             int lazyDamage = 20;
             int factorDamage = 2;
-            int pushupsNumber = 41;
+            int pushupsNumber;
             int minRandomNumber = 0;
             int maxRandomNumber = 100;
             int randomNumber;
@@ -31,41 +31,53 @@ namespace IJunior_Task20
                     if (userInput == "Lets Burn!")
                     {
                         Console.WriteLine($"\nХорошо взбодрились! \nВаша решимость {pointsOfDetermination}%!");
-                    }
-                    else
-                    {
-                        pointsOfDetermination -= lazyDamage;
-                        Console.WriteLine($"\nЧто то пошло не так! \nВаша решимость {pointsOfDetermination}%!");
-                    }
-                    Console.WriteLine($"\n\nЛень продолжает атаковать! \nПришло оповещение о новом видео вашего любимого блогера! Надо сопративляться и отложить просмотр.\nВведите заклинание (Добавить в избранное!)");
-                    userInput = Console.ReadLine();
 
-                    if (userInput == "Добавить в избранное!")
-                    {
-                        pointsOfDetermination -= lazyDamage / factorDamage;
-                        Console.WriteLine($"\nОтлично! Но вы все же отвлеклись на телефон! \nВаша решимость {pointsOfDetermination}%!");
+                        Console.WriteLine($"\n\nЛень продолжает атаковать! \nПришло оповещение о новом видео вашего любимого блогера! Надо сопративляться и отложить просмотр.\nВведите заклинание (Добавить в избранное!)");
+                        userInput = Console.ReadLine();
+
+                        if (userInput == "Добавить в избранное!")
+                        {
+                            pointsOfDetermination -= lazyDamage / factorDamage;
+                            Console.WriteLine($"\nОтлично! Но вы все же отвлеклись на телефон! \nВаша решимость {pointsOfDetermination}%!");
+                        }
+                        else
+                        {
+                            pointsOfDetermination -= lazyDamage;
+                            Console.WriteLine($"\nВы все же решили взглянуть одним глазком... этот час пролетел незаметно! \nВаша решимость {pointsOfDetermination}%!");
+                        }
                     }
                     else
                     {
-                        pointsOfDetermination -= lazyDamage;
-                        Console.WriteLine($"\nВы все же решили взглянуть одним глазком... этот час пролетел незаметно! \nВаша решимость {pointsOfDetermination}%!");
+                        pointsOfDetermination -= lazyDamage * factorDamage;
+                        Console.WriteLine($"\nЧто то пошло не так! Похоже вы уснули! \nВаша решимость {pointsOfDetermination}%!");
                     }
+
                     Console.WriteLine($"\n\nСледующая Атака! \nВы чувствуете слабость по всему телу, надо срочно разогнать кровь!\nВведите заклинание (Упасть - Отжаться!)");
                     userInput = Console.ReadLine();
 
                     if (userInput == "Упасть - Отжаться!")
                     {
+                        Console.WriteLine($"\nСможете отжаться больше чем ваша решимость сейчас? \nВведите колличество отжиманий и будьте честны перед собой!");
+                        pushupsNumber = Convert.ToInt32(Console.ReadLine());
 
-                        for (int i = pushupsNumber; i > 0; i--)
+                        for (int i = 1; i <= pushupsNumber; i++)
                         {
-                            pushupsNumber--;
-                            Console.WriteLine(pushupsNumber);
+
+                            Console.WriteLine(i);
                         }
-                        Console.WriteLine($"\nСупер! Лучше 40 раз по разу, чем ни разу 40 раз! \nВаша решимость {pointsOfDetermination}%!");
+                        if (pushupsNumber > pointsOfDetermination)
+                        {
+                            pointsOfDetermination += lazyDamage;
+                            Console.WriteLine($"\nСупер! Как говориться -  Лучше 40 раз по разу, чем ни разу 40 раз! \n Вы восстанавливаете решимость и она составляет {pointsOfDetermination}%!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nНе плохо! Но надо чаще тренить! \nВаша решимость {pointsOfDetermination}%!");
+                        }
                     }
                     else
                     {
-                        pointsOfDetermination -= lazyDamage;
+                        pointsOfDetermination -= lazyDamage * factorDamage;
                         Console.WriteLine($"\nЕсли так продолжится, скоро Вы даже... ложку поднять не сможете! \nВаша решимость {pointsOfDetermination}%!");
                     }
 
@@ -97,18 +109,26 @@ namespace IJunior_Task20
                     else
                     {
                         pointsOfDetermination -= lazyDamage * factorDamage;
-                        Console.WriteLine($"\nЛень бьет по вам со всего размаху и отправляет вас в прокрастинацию! \nВаша решимость {pointsOfDetermination}%! \nВы  - лузер по жизни... живите теперь с этим!");
+
+                        if (pointsOfDetermination > minPointsOfDetermination)
+                        {
+                            Console.WriteLine($"\n\nЛень бьет по вам со всего размаху, но Вы смогли устоять!\nВаша решимость {pointsOfDetermination}%!\nПОБЕДА все равно за Вами! Вы взяли себя в руки и пошли кодить!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nЛень бьет по вам со всего размаху и отправляет вас в прокрастинацию! \nВаша решимость {pointsOfDetermination}%! \nВы  - лузер по жизни... живите теперь с этим!");
+                        }
                     }
                     break;
 
                 case "Нет":
 
-                    Console.WriteLine(" \nВы  - лузер по жизни... живите теперь с этим!");
+                    Console.WriteLine(" \nВы - лузер по жизни... живите теперь с этим!");
                     break;
 
                 case "Пойти покодить!":
 
-                    Console.WriteLine(" \n У Вас нет времени заниматься всякой ерундой! \n Программист сказал - программист написал! Вы  - ПОБЕДИТЕЛЬ по жизни!");
+                    Console.WriteLine(" \nУ Вас нет времени заниматься всякой ерундой! \nПрограммист сказал - программист написал! Вы  - ПОБЕДИТЕЛЬ по жизни!");
                     break;
             }
         }
